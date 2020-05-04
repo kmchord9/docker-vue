@@ -12,7 +12,6 @@
             </div>
             <div class="column">
                 <h3>Bar Chart</h3>
-                <line-chart msg='http://localhost:3000/api/logs/?created_at__date=2020-05-02&format=json'></line-chart>
             </div>
         </div>
         <div class="columns">
