@@ -16,7 +16,7 @@ services:
   web_backend:
     container_name: django_web_backend
     build: ./compose/django
-    command: sh +x createBD.sh
+    command: sh +x /setup/createBD.sh
     volumes: 
       - ./src/django:/code
     ports:
