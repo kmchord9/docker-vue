@@ -8,8 +8,19 @@ services:
     volumes: 
       - ./src/vuecli:/code
     ports:
-      - 3001:3000
+      - 8081:8080
     env_file: 
       - ./.envs/.vuecli
     tty: true
     
+  web_backend:
+    container_name: django_web_backend
+    build: ./compose/django
+    command: sh +x createBD.sh
+    volumes: 
+      - ./src/django:/code
+    ports:
+      - 3001:3000
+    env_file: 
+      - ./.envs/.django
+    tty: true
