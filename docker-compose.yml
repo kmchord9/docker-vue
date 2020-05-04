@@ -1,0 +1,15 @@
+version: "3"
+
+services: 
+  web_front:
+    container_name: vue_web_front
+    build: ./compose/vuecli
+    command: sh +x yarn-install-start.sh
+    volumes: 
+      - ./src/vuecli:/code
+    ports:
+      - 3001:3000
+    env_file: 
+      - ./.envs/.vuecli
+    tty: true
+    
