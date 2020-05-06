@@ -16,6 +16,7 @@ services:
   web_backend:
     container_name: django_web_backend
     build: ./compose/django
+    #command: bash -c "./setup/wait-for-it.sh db:3306 && sh /setup/createBD.sh"
     command: sh +x /setup/createBD.sh
     volumes: 
       - ./src/django:/code
@@ -24,6 +25,8 @@ services:
     env_file: 
       - ./.envs/.django
     tty: true
+    depends_on:
+      - db
 
   db:
     container_name: mysql
@@ -31,7 +34,7 @@ services:
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes: 
       - ./db:/var/lib/mysql
-      - ./compose/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./compose/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: django
