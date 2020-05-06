@@ -25,21 +25,21 @@ services:
       - ./.envs/.django
     tty: true
 
-    db:
-      container_name: mysql
-      build: ./compose/mysql
-      command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-      volumes: 
-        - ./db:/var/lib/mysql
-        - ./compose//my.cnf:/etc/mysql/conf.d/my.cnf
-      environment:
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_DATABASE: django
-        MYSQL_USER: django
-        MYSQL_PASSWORD: django
-        TZ: 'Asia/Tokyo' 
-      ports:
-        - 3306:3306
-      #env_file: 
-      #  - ./.envs/.django
-      #tty: true
+  db:
+    container_name: mysql
+    build: ./compose/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes: 
+      - ./db:/var/lib/mysql
+      - ./compose/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: django
+      MYSQL_USER: django
+      MYSQL_PASSWORD: django
+      TZ: 'Asia/Tokyo' 
+    ports:
+      - 3306:3306
+    #env_file: 
+    #  - ./.envs/.django
+    #tty: true
