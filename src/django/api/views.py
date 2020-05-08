@@ -20,10 +20,12 @@ class LogSerializer(serializers.ModelSerializer):
 class LogFilter(django_filters.FilterSet):
   created_at = filters.DateTimeFilter(lookup_expr='date')
   created_gt = filters.DateTimeFilter(field_name='created_at', lookup_expr='gt')
+  device = filters.CharFilter(field_name='device',lookup_expr='exact')
+  place = filters.CharFilter(field_name='place',lookup_expr='exact')
   
   class Meta:
     model = Log
-    fields = ['created_at', 'created_gt']
+    fields = ['created_at', 'created_gt', 'device', 'place']
 
 class LogViewSet(viewsets.ModelViewSet):
   queryset = Log.objects.all().order_by("created_at")
