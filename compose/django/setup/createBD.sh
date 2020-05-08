@@ -9,10 +9,10 @@ DJANGO_DB_NAME=default
 DJANGO_SU_EMAIL=admin@my.company
 DJANGO_SETTING_MODULE=DJANGO_SETTING_MODULE
 
-#until ./manage.py inspectdb; do
-#  >&2 echo "Database is unavailable - sleeping"
-#  sleep 1
-#done
+until ./manage.py inspectdb; do
+  >&2 echo "Database is unavailable - sleeping"
+  sleep 1
+done
 
 if [ ! -e db.sqlite3 ]; then
   if [ -e manage.py ]; then
