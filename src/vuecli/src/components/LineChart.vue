@@ -8,7 +8,8 @@ export default {
   extends: Line,
   data: () => {
     return {
-      chartx: []
+      chartx: [],
+      charty: []
     }
   },
   props: {
@@ -21,7 +22,10 @@ export default {
   },
   created () {
     this.getdata().then((res) => {
-      this.chartx = res.data.temperature
+      this.charty = res.data.temperature
+      this.chartx = res.data.create
+      console.log(this.chartx)
+      console.log(this.charty)
     })
   },
   mounted () {
@@ -31,11 +35,24 @@ export default {
         datasets: [
           {
             label: 'Data',
-            backgroundColor: '#f87979',
-            borderWidth: 1,
-            data: this.chartx
+            // backgroundColor: '#f87979',
+            // borderWidth: 1,
+            data: [{
+              t: this.chartx,
+              y: this.charty
+            }]
           }
         ]
+      },
+      {
+        scales: {
+          xAxes: [{
+            type: 'time',
+            time: {
+              unit: 'second'
+            }
+          }]
+        }
       })
     })
   }

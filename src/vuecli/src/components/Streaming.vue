@@ -2,17 +2,30 @@
 import { Line } from 'vue-chartjs'
 import 'chartjs-plugin-streaming'
 import axios from 'axios'
+import client from '../api/api'
 
 export default {
   extends: Line,
+  data: () => {
+    return {
+      lasttime: '',
+      temp: ''
+    }
+  },
   props: {
     msg: String
   },
   methods: {
-    getdata: async (msg) => {
-      var res = await axios.get(msg)
-      console.log(msg)
-      return res.data.ADT7410.temp
+    setdata: async () => {
+      //var url = ''
+      client.get('/logs/?created_gt=2020-05-08 15:22:14')
+        .then(res => {
+          this.temp = res.data.temperature
+        })
+    },
+    getdata: () => {
+      this.setdata()
+      return this.temp
     }
   },
   mounted () {
