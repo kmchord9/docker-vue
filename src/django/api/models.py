@@ -15,6 +15,18 @@ class Log(models.Model):
     verbose_name='湿度',
     blank=True,
   )
+  pressure = models.FloatField(
+    verbose_name='気圧',
+    blank=True,
+  )
+  device = models.CharField(
+    max_length=128,
+    blank=False,
+  )
+  place = models.CharField(
+    max_length=128,
+    blank=False,
+  )
 
   def __str__(self):
     return str(self.created_at)
