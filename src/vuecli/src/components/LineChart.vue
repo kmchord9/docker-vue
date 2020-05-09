@@ -8,7 +8,9 @@ export default {
   extends: Line,
   data: () => {
     return {
-      chartx: []
+      charty: [],
+      chartt: []
+      // timestamp: ['2018/04/16 22:18', '2018/04/16 23:18', '2018/04/17 00:18', '2018/04/17 01:18']
     }
   },
   props: {
@@ -16,27 +18,57 @@ export default {
   },
   methods: {
     getdata: async () => {
-      return client.get('/logs/')
+      return client.get('/logs/?created_gt=2020-05-09 15:15:18')
+    },
+    setdata: (arrT, arrY) => {
+      const data = []
+      if (arrT.length === arrY.length) {
+        for (let i = 0; i < arrT.length; i++) {
+          console.log(arrT[i])
+          data.push({
+            t: arrT[i],
+            y: arrY[i]
+          })
+        }
+      } else {
+        console.log('The number of elements is different')
+      }
+      return data
     }
   },
-  created () {
-    this.getdata().then((res) => {
-      this.chartx = res.data.temperature
+  async mounted () {
+    const res = await this.getdata()
+    this.charty = res.data.temperature
+    res.data.created_at.forEach(element => {
+      this.chartt.push(new Date(element))
     })
-  },
-  mounted () {
-    this.getdata().then((res) => {
-      this.renderChart({
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        datasets: [
-          {
-            label: 'Data',
-            backgroundColor: '#f87979',
-            borderWidth: 1,
-            data: this.chartx
-          }
-        ]
-      })
+    // this.chartt = res.data.created_at
+    var plot = this.setdata(this.chartt, this.charty)
+
+    this.renderChart({
+      datasets: [
+        {
+          label: 'Data',
+          backgroundColor: 'rgba(0,0,0,0)',
+          borderColor: 'rgba(255,0,0,1)',
+          lineTension: 0.4,
+          // borderWidth: 1,
+          data: plot
+        }
+      ]
+    },
+    {
+      scales: {
+        xAxes: [{
+          type: 'time',
+          // time: {
+            // unit: 'second',
+            // displayFormats: {
+            //   second: 'h:mm:ss'
+            // }
+          // }
+        }]
+      }
     })
   }
 }
