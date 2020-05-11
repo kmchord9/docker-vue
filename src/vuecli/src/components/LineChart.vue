@@ -60,12 +60,12 @@ export default {
     {
       scales: {
         xAxes: [{
-          type: 'time',
+          type: 'time'
           // time: {
-            // unit: 'second',
-            // displayFormats: {
-            //   second: 'h:mm:ss'
-            // }
+          // unit: 'second',
+          // displayFormats: {
+          //   second: 'h:mm:ss'
+          // }
           // }
         }]
       }
