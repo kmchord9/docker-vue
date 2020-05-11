@@ -24,7 +24,7 @@ export default {
       const data = []
       if (arrT.length === arrY.length) {
         for (let i = 0; i < arrT.length; i++) {
-          console.log(arrT[i])
+          // console.log(arrT[i])
           data.push({
             t: arrT[i],
             y: arrY[i]
@@ -33,6 +33,7 @@ export default {
       } else {
         console.log('The number of elements is different')
       }
+      console.log(data)
       return data
     }
   },
