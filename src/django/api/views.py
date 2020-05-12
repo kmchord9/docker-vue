@@ -12,8 +12,7 @@ from .models import *
 
 # Create your views here.
 
-class LogSerializer(serializers.ModelSerializer):
-  
+class LogSerializer(serializers.ModelSerializer):  
   class Meta:
     model = Log
     fields = '__all__'
@@ -34,6 +33,42 @@ class LogViewSet(viewsets.ModelViewSet):
 
   serializer_class = LogSerializer
   filter_class = LogFilter
+
+  authentication_classes = (SessionAuthentication, BasicAuthentication)
+  permission_classes= (IsAuthenticated,)
+
+class PhysicsSerializer(serializers.ModelSerializer):  
+  class Meta:
+    model = Physics
+    fields = '__all__'
+
+class PhysicsViewSet(viewsets.ModelViewSet):
+  queryset = Physics.objects.all()
+  serializer_class = PhysicsSerializer
+
+  authentication_classes = (SessionAuthentication, BasicAuthentication)
+  permission_classes= (IsAuthenticated,)
+
+class DeviceSerializer(serializers.ModelSerializer):  
+  class Meta:
+    model = Device
+    fields = '__all__'
+
+class DeviceViewSet(viewsets.ModelViewSet):
+  queryset = Device.objects.all()
+  serializer_class = DeviceSerializer
+
+  authentication_classes = (SessionAuthentication, BasicAuthentication)
+  permission_classes= (IsAuthenticated,)
+
+class PlaceSerializer(serializers.ModelSerializer):  
+  class Meta:
+    model = Place
+    fields = '__all__'
+
+class PlaceViewSet(viewsets.ModelViewSet):
+  queryset = Place.objects.all()
+  serializer_class = PlaceSerializer
 
   authentication_classes = (SessionAuthentication, BasicAuthentication)
   permission_classes= (IsAuthenticated,)

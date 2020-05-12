@@ -17,11 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from api.views import LogViewSet
+from api.views import LogViewSet, PhysicsViewSet, DeviceViewSet, PlaceViewSet
 from api.views import MainView
 
 router = routers.DefaultRouter()
 router.register(r'logs', LogViewSet)
+router.register(r'physics', PhysicsViewSet)
+router.register(r'device', DeviceViewSet)
+router.register(r'place', PlaceViewSet)
 
 urlpatterns = [
   path('admin/', admin.site.urls),
