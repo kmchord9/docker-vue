@@ -8,11 +8,12 @@ from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django_filters import ModelChoiceFilter
-from .models import Log
+from .models import *
 
 # Create your views here.
 
 class LogSerializer(serializers.ModelSerializer):
+  
   class Meta:
     model = Log
     fields = '__all__'
@@ -20,12 +21,13 @@ class LogSerializer(serializers.ModelSerializer):
 class LogFilter(django_filters.FilterSet):
   created_at = filters.DateTimeFilter(lookup_expr='date')
   created_gt = filters.DateTimeFilter(field_name='created_at', lookup_expr='gt')
-  device = filters.CharFilter(field_name='device',lookup_expr='exact')
-  place = filters.CharFilter(field_name='place',lookup_expr='exact')
+  physics = filters.NumberFilter(field_name='physics',lookup_expr='exact')
+  device = filters.NumberFilter(field_name='device',lookup_expr='exact')
+  place = filters.NumberFilter(field_name='place',lookup_expr='exact')
   
   class Meta:
     model = Log
-    fields = ['created_at', 'created_gt', 'device', 'place']
+    fields = ['created_at', 'created_gt', 'physics', 'device', 'place']
 
 class LogViewSet(viewsets.ModelViewSet):
   queryset = Log.objects.all().order_by("created_at")
