@@ -20,12 +20,13 @@ if [ ! -e db.sqlite3 ]; then
     python manage.py makemigrations
     python manage.py migrate
     #create database user
-    cp /setup/setup.py /code/
-    python setup.py
+
   fi
 else
   echo "db.sqlite3 found"
 fi
 
+cp /setup/setup.py /code/
+python setup.py
 python manage.py runserver 0.0.0.0:3000
 
