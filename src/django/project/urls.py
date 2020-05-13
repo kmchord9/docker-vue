@@ -17,20 +17,17 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from api.views import LogViewSet, PhysicsViewSet, DeviceViewSet, PlaceViewSet
-from api.views import MainView
+from api.views import LogViewSet
+from api.views import MainView,  UserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'logs', LogViewSet)
-router.register(r'physics', PhysicsViewSet)
-router.register(r'device', DeviceViewSet)
-router.register(r'place', PlaceViewSet)
+router.register(r'users', UserViewSet, basename='user')
 
 urlpatterns = [
   path('admin/', admin.site.urls),
   path('api/', include(router.urls)),
   path('', MainView.as_view),
-
 ]
 
 admin.site.site_header = '気温と湿度の変化'
