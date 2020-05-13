@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from api.views import LogViewSet
+from api.views import LogViewSet, PlaceViewSet
 from api.views import MainView,  UserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'logs', LogViewSet)
+router.register(r'place', PlaceViewSet)
 router.register(r'users', UserViewSet, basename='user')
 
 urlpatterns = [

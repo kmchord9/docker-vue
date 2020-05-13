@@ -40,6 +40,17 @@ class LogViewSet(viewsets.ModelViewSet):
   authentication_classes = (SessionAuthentication, BasicAuthentication)
   permission_classes= (IsAuthenticated,)
 
+class PlaceSerializer(serializers.ModelSerializer):  
+  class Meta:
+    model = Place
+    fields = '__all__'
+
+class PlaceViewSet(viewsets.ModelViewSet):
+  queryset = Place.objects.all()
+  serializer_class = PlaceSerializer
+
+  authentication_classes = (SessionAuthentication, BasicAuthentication)
+  permission_classes= (IsAuthenticated,)
 
 class MainView(LoginRequiredMixin, TemplateView):
   template_name = 'index.html'
