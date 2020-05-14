@@ -9,7 +9,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from django_filters import ModelChoiceFilter
 import json
-#from django.http.response import JsonResponse
+from django.http.response import JsonResponse
 from rest_framework.response import Response
 from .models import *
 
@@ -67,6 +67,7 @@ class UserViewSet(viewsets.ViewSet):
             'device':{ dev[1]: dev[0] for dev in devs },
             'place':{ pla[1]: pla[0] for pla in  plas }
             }
+    #json_data = json.dumps(relate, ensure_ascii=False)
 
     return Response(relate)
 
