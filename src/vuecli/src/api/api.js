@@ -11,10 +11,13 @@ const client = axios.create({
   timeout: 5000
 })
 
-const chartLogData = (pla, phy) => {
+const chartLogData = (at, phy, dev, pla) => {
   return client.get('/users/')
     .then(res1 => {
-      return client.get(`logs/?place=${res1.data.place[pla]}&physics${res1.data.physics[phy]}`)
+      return client.get(`logs/?created_at=${at}&\
+physics=${res1.data.physics[phy]}&\
+device=${res1.data.device[dev]}&\
+place=${res1.data.place[pla]}`)
         .then(res2 => {
           let parms = {'place': pla, 'physics': phy}
           res2.data.unshift(parms)
