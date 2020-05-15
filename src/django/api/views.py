@@ -70,9 +70,3 @@ class UserViewSet(viewsets.ViewSet):
     #json_data = json.dumps(relate, ensure_ascii=False)
 
     return Response(relate)
-
-
-
-  
-
-
