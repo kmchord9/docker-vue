@@ -26,4 +26,4 @@ place=${res1.data.place[pla]}`)
     })
 }
 
-export default {client, chartLogData}
+export {client, chartLogData}

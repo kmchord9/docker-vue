@@ -2,7 +2,7 @@
 import { Line } from 'vue-chartjs'
 // import moment from 'moment'
 // import axios from 'axios'
-import client from '../api/api'
+import {client, chartLogData} from '../api/api'
 
 export default {
   extends: Line,
@@ -38,23 +38,31 @@ export default {
     }
   },
   async mounted () {
-    const res = await this.getdata()
-    this.charty = res.data.temperature
-    res.data.created_at.forEach(element => {
-      this.chartt.push(new Date(element))
+    let res = await chartLogData('2020-05-15', '温度', 'BME280', '部屋001')
+    let label = `${res.data[0]['place']}の${res.data[0]['physics']}`
+    let data = []
+    res.data.slice(1).forEach(element => {
+      data.push({
+        t: new Date(element['created_at']),
+        y: element['value']
+      })
     })
+    // this.charty = res.data.temperature
+    // res.data.created_at.forEach(element => {
+    // this.chartt.push(new Date(element))
+    // })
     // this.chartt = res.data.created_at
-    var plot = this.setdata(this.chartt, this.charty)
+    // var plot = this.setdata(this.chartt, this.charty)
 
     this.renderChart({
       datasets: [
         {
-          label: 'Data',
+          label: label,
           backgroundColor: 'rgba(0,0,0,0)',
           borderColor: 'rgba(255,0,0,1)',
           lineTension: 0.4,
           // borderWidth: 1,
-          data: plot
+          data: data
         }
       ]
     },
