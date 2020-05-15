@@ -1,5 +1,5 @@
 import axios from 'axios'
-import moment from 'moment'
+// import moment from 'moment'
 
 const BASE_URL = 'http://localhost:3001'
 
@@ -11,23 +11,16 @@ const client = axios.create({
   timeout: 5000
 })
 
-client.interceptors.response.use(
-  (res) => {
-    let sensorData = {
-      'temperature': [],
-      'humidity': [],
-      'created_at': []
-    }
-    res.data.forEach((element) => {
-      sensorData.temperature.push(element.temperature)
-      sensorData.humidity.push(element.humidity)
-      sensorData.created_at.push(moment(element.created_at).format('YYYY/MM/DD HH:mm:ss'))
-      // sensorData.created_at.push(element.created_at)
+const chartLogData = (pla, phy) => {
+  return client.get('/users/')
+    .then(res1 => {
+      return client.get(`logs/?place=${res1.data.place[pla]}&physics${res1.data.physics[phy]}`)
+        .then(res2 => {
+          let parms = {'place': pla, 'physics': phy}
+          res2.data.unshift(parms)
+          return Promise.resolve(res2)
+        })
     })
-    res.data = sensorData
-    // console.log(res.data)
-    return res
-  }
-)
+}
 
-export default client
+export default {client, chartLogData}

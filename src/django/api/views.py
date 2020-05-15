@@ -18,7 +18,8 @@ from .models import *
 class LogSerializer(serializers.ModelSerializer):  
   class Meta:
     model = Log
-    fields = '__all__'
+    #fields = '__all__'
+    fields = ['created_at', 'value']
 
 class LogFilter(django_filters.FilterSet):
   created_at = filters.DateTimeFilter(lookup_expr='date')
