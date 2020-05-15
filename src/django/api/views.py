@@ -18,9 +18,12 @@ from .models import *
 class LogSerializer(serializers.ModelSerializer):  
   class Meta:
     model = Log
-    fields = ['created_at', 'value', 'physics', 'device', 'place']
-    #POSTとGETの挙動を分けたい
-    #read_only_fields = ['created_at', 'value']
+    fields = ('created_at', 'value', 'physics', 'device', 'place')
+    extra_kwargs = {
+      'physics': {'write_only': True},
+      'device': {'write_only': True},
+      'place': {'write_only': True},
+    }
 
 class LogFilter(django_filters.FilterSet):
   created_at = filters.DateTimeFilter(lookup_expr='date')
