@@ -1,24 +1,43 @@
 <script>
 import { Line } from 'vue-chartjs'
 import 'chartjs-plugin-streaming'
-import axios from 'axios'
+// import axios from 'axios'
+import moment from 'moment'
+import {chartLogData} from '../api/api'
 
 export default {
   extends: Line,
+  data: () => {
+    return {
+      chartData: [],
+      lastDate: undefined,
+      todate: moment(new Date()).format('YYYY-MM-DD')
+    }
+  },
   props: {
     msg: String
   },
   methods: {
-    getdata: async (msg) => {
-      var res = await axios.get(msg)
-      console.log(msg)
-      return res.data.ADT7410.temp
+    async getdata (at, gt) {
+      at = (at === undefined) ? '' : at
+      at = (gt === undefined) ? at : ''
+      gt = (gt === undefined) ? '' : gt
+      let res = await chartLogData('温度', 'BME280', '部屋028', at, gt)
+      res.data.slice(1).forEach(element => {
+        this.chartData.push({
+          t: new Date(element['created_at']),
+          y: element['value']
+        })
+      })
+      this.lastDate = moment(this.chartData.slice(-1)[0]['t']).format('YYYY-MM-DD hh:mm:ss.SSS')
+      console.log(`更新時間${this.lastDate}`)
     }
   },
   mounted () {
     this.renderChart({
       datasets: [{
-        data: [],
+        label: 'label',
+        data: this.chartData,
         borderColor: 'rgba(255,0,0,1)',
         backgroundColor: 'rgba(0,0,0,0)'
       }]
@@ -28,15 +47,10 @@ export default {
           type: 'realtime',
           realtime: {
             delay: 2000,
-            refresh: 2000,
+            refresh: 5000,
             duration: 300000,
-            onRefresh: (chart) => {
-              chart.data.datasets.forEach(async (dataset) => {
-                dataset.data.push({
-                  x: Date.now(),
-                  y: await this.getdata(this.msg)
-                })
-              })
+            onRefresh: () => {
+              this.getdata(this.todate, this.lastDate)
             }
           }
         }],

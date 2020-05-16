@@ -31,6 +31,7 @@ class LogFilter(django_filters.FilterSet):
   physics = filters.NumberFilter(field_name='physics',lookup_expr='exact')
   device = filters.NumberFilter(field_name='device',lookup_expr='exact')
   place = filters.NumberFilter(field_name='place',lookup_expr='exact')
+  id_num = filters.NumberFilter(field_name='id',lookup_expr='gt')
   
   class Meta:
     model = Log

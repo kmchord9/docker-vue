@@ -38,7 +38,7 @@ export default {
     }
   },
   async mounted () {
-    let res = await chartLogData('2020-05-15', '温度', 'BME280', '部屋001')
+    let res = await chartLogData('温度', 'BME280', '部屋028', '2020-05-16')
     let label = `${res.data[0]['place']}の${res.data[0]['physics']}`
     let data = []
     res.data.slice(1).forEach(element => {
@@ -47,6 +47,7 @@ export default {
         y: element['value']
       })
     })
+    console.log(data)
     // this.charty = res.data.temperature
     // res.data.created_at.forEach(element => {
     // this.chartt.push(new Date(element))
