@@ -2,84 +2,82 @@
 import { Line } from 'vue-chartjs'
 // import moment from 'moment'
 // import axios from 'axios'
-import {client, chartLogData} from '../api/api'
+import {chartLogData} from '../api/api'
 
 export default {
   extends: Line,
   data: () => {
     return {
-      charty: [],
-      chartt: []
-      // timestamp: ['2018/04/16 22:18', '2018/04/16 23:18', '2018/04/17 00:18', '2018/04/17 01:18']
+      chartData: [],
+      label: 'testlabels'
     }
   },
   props: {
     msg: String
   },
   methods: {
-    getdata: async () => {
-      return client.get('/logs/?created_gt=2020-05-09 15:15:18')
+    async getdata (at, gt) {
+      let res = await chartLogData('温度', 'BME280', '部屋028', at, gt)
+      console.log(res.data[0]['place'])
+      this.label = `${res.data[0]['place']}の${res.data[0]['physics']}`
+      res.data.slice(1).forEach(element => {
+        this.chartData.push({
+          t: new Date(element['created_at']),
+          y: element['value']
+        })
+      })
+      // this.lastDate = moment(this.chartData.slice(-1)[0]['t']).format('YYYY-MM-DD hh:mm:ss.SSS')
+      // console.log(`更新時間${this.lastDate}`)
     },
-    setdata: (arrT, arrY) => {
-      const data = []
-      if (arrT.length === arrY.length) {
-        for (let i = 0; i < arrT.length; i++) {
-          // console.log(arrT[i])
-          data.push({
-            t: arrT[i],
-            y: arrY[i]
+    promiseGet (phy, dev, pla, at, gt, id) {
+      console.log(this.label)
+      return chartLogData(phy, dev, pla, at, gt, id)
+        .then(res => {
+          console.log(this.label)
+          this.label = `${res.data[0]['place']}の${res.data[0]['physics']}`
+          res.data.slice(1).forEach(element => {
+            this.chartData.push({
+              t: new Date(element['created_at']),
+              y: element['value']
+            })
           })
-        }
-      } else {
-        console.log('The number of elements is different')
-      }
-      console.log(data)
-      return data
+          return Promise.resolve()
+        })
     }
   },
-  async mounted () {
-    let res = await chartLogData('温度', 'BME280', '部屋028', '2020-05-16')
-    let label = `${res.data[0]['place']}の${res.data[0]['physics']}`
-    let data = []
-    res.data.slice(1).forEach(element => {
-      data.push({
-        t: new Date(element['created_at']),
-        y: element['value']
+  created () {
+    console.log('create')
+    // this.getdata('2020-05-17')
+    // console.log(this.chartData)
+  },
+  mounted () {
+    console.log('mount')
+    console.log(this.chartData)
+    this.promiseGet('温度', 'BME280', '部屋028', '2020-05-16')
+      .then(() => {
+        this.renderChart({
+          datasets: [{
+            label: this.label,
+            backgroundColor: 'rgba(0,0,0,0)',
+            borderColor: 'rgba(255,0,0,1)',
+            // lineTension: 0.4,
+            // borderWidth: 1,
+            data: this.chartData
+          }]
+        }, {
+          scales: {
+            xAxes: [{
+              type: 'time'
+              // time: {
+              // unit: 'second',
+              // displayFormats: {
+              //   second: 'h:mm:ss'
+              // }
+              // }
+            }]
+          }
+        })
       })
-    })
-    console.log(data)
-    // this.charty = res.data.temperature
-    // res.data.created_at.forEach(element => {
-    // this.chartt.push(new Date(element))
-    // })
-    // this.chartt = res.data.created_at
-    // var plot = this.setdata(this.chartt, this.charty)
-
-    this.renderChart({
-      datasets: [
-        {
-          label: label,
-          backgroundColor: 'rgba(0,0,0,0)',
-          borderColor: 'rgba(255,0,0,1)',
-          lineTension: 0.4,
-          // borderWidth: 1,
-          data: data
-        }
-      ]
-    },
-    {
-      scales: {
-        xAxes: [{
-          type: 'time'
-          // time: {
-          // unit: 'second',
-          // displayFormats: {
-          //   second: 'h:mm:ss'
-          // }
-          // }
-        }]
-      }
-    })
   }
 }
 </script>
