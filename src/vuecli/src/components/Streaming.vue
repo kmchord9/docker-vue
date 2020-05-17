@@ -10,7 +10,8 @@ export default {
   data: () => {
     return {
       chartData: [],
-      lastDate: undefined,
+      // lastDate: undefined,
+      lastDate: moment(new Date()).format('YYYY-MM-DD hh:mm:ss.SSS'),
       todate: moment(new Date()).format('YYYY-MM-DD')
     }
   },
