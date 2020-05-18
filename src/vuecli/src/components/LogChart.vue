@@ -9,11 +9,10 @@
         <div class="columns">
             <div class="column">
                 <h3>Line Chart</h3>
-                <stream dev="ADT7410" room="部屋002"></stream>
+                <line-chart></line-chart>
             </div>
             <div class="column">
                 <h3>Bar Chart</h3>
-                <stream dev="MAX31855" room="部屋003"></stream>
             </div>
         </div>
         <div class="columns">
@@ -35,7 +34,7 @@ import LineChart from './LineChart'
 // import BarChart from './BarChart'
 import BubbleChart from './BubbleChart'
 import Reactive from './Reactive'
-import Stream from './Streaming'
+// import Stream from './Streaming'
 
 export default {
   name: 'VueChartJS',
@@ -43,8 +42,8 @@ export default {
     LineChart,
     // BarChart,
     BubbleChart,
-    Reactive,
-    Stream
+    Reactive
+    // Stream
   },
   data () {
     return {

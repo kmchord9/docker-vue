@@ -16,14 +16,15 @@ export default {
     }
   },
   props: {
-    msg: String
+    dev: String,
+    room: String
   },
   methods: {
-    async getdata (at, gt) {
+    async getdata (dev, room, at, gt) {
       at = (at === undefined) ? '' : at
       at = (gt === undefined) ? at : ''
       gt = (gt === undefined) ? '' : gt
-      let res = await chartLogData('温度', 'BME280', '部屋028', at, gt)
+      let res = await chartLogData('温度', dev, room, at, gt)
       res.data.slice(1).forEach(element => {
         this.chartData.push({
           t: new Date(element['created_at']),
@@ -51,7 +52,7 @@ export default {
             refresh: 5000,
             duration: 300000,
             onRefresh: () => {
-              this.getdata(this.todate, this.lastDate)
+              this.getdata(this.dev, this.room, this.todate, this.lastDate)
             }
           }
         }],

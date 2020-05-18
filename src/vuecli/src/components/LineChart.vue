@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     async getdata (at, gt) {
-      let res = await chartLogData('温度', 'BME280', '部屋028', at, gt)
+      let res = await chartLogData('温度', 'BME280', '部屋001', at, gt)
       console.log(res.data[0]['place'])
       this.label = `${res.data[0]['place']}の${res.data[0]['physics']}`
       res.data.slice(1).forEach(element => {
@@ -30,10 +30,8 @@ export default {
       // console.log(`更新時間${this.lastDate}`)
     },
     promiseGet (phy, dev, pla, at, gt, id) {
-      console.log(this.label)
       return chartLogData(phy, dev, pla, at, gt, id)
         .then(res => {
-          console.log(this.label)
           this.label = `${res.data[0]['place']}の${res.data[0]['physics']}`
           res.data.slice(1).forEach(element => {
             this.chartData.push({
@@ -53,8 +51,10 @@ export default {
   mounted () {
     console.log('mount')
     console.log(this.chartData)
-    this.promiseGet('温度', 'BME280', '部屋028', '2020-05-16')
+    this.promiseGet('温度', 'MAX31855', '部屋003', '2020-05-18')
       .then(() => {
+        console.log(this.label)
+        console.log(this.chartData)
         this.renderChart({
           datasets: [{
             label: this.label,
@@ -75,6 +75,9 @@ export default {
               // }
               // }
             }]
+          },
+          plugins: {
+            streaming: false
           }
         })
       })

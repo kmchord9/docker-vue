@@ -5,6 +5,7 @@
                 <h1>Creating Beautiful Charts Using Vue.js Wrapper For Cjart.js</h1>
                 <ul>
                     <li><router-link to="chartjs">vue-chartjs</router-link></li>
+                    <li><router-link to="logchart">log-chartjs</router-link></li>
                 </ul>
 
             </div>
