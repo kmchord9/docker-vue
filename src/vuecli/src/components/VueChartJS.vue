@@ -36,6 +36,7 @@ import LineChart from './LineChart'
 import BubbleChart from './BubbleChart'
 import Reactive from './Reactive'
 import Stream from './Streaming'
+import {chartLogData} from '../api/api'
 
 export default {
   name: 'VueChartJS',
@@ -48,6 +49,7 @@ export default {
   },
   data () {
     return {
+      chartData: [],
       dataContents: null
     }
   },
@@ -55,17 +57,33 @@ export default {
     this.fillData()
   },
   methods: {
+    promiseGet (phy, dev, pla, at, gt, id) {
+      return chartLogData(phy, dev, pla, at, gt, id)
+        .then(res => {
+          this.label = `${res.data[0]['place']}の${res.data[0]['physics']}`
+          res.data.slice(1).forEach(element => {
+            this.chartData.push({
+              t: new Date(element['created_at']),
+              y: element['value']
+            })
+          })
+          return Promise.resolve()
+        })
+    },
     fillData () {
-      this.dataContents = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        datasets: [
-          {
-            label: 'Data reractive',
-            backgroundColor: '#f8b979',
-            data: [this.getRandomNum(), this.getRandomNum(), this.getRandomNum(), this.getRandomNum(), this.getRandomNum(), this.getRandomNum(), this.getRandomNum(), this.getRandomNum(), this.getRandomNum(), this.getRandomNum(), this.getRandomNum(), this.getRandomNum()]
+      this.promiseGet('温度', 'MAX31855', '部屋003', '2020-05-18')
+        .then(() => {
+          this.dataContents = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            datasets: [
+              {
+                label: 'Data reractive',
+                backgroundColor: '#f8b979',
+                data: this.chartData
+              }
+            ]
           }
-        ]
-      }
+        })
     },
     getRandomNum () {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5
