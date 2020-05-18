@@ -11,8 +11,8 @@ export default {
     return {
       chartData: [],
       // lastDate: undefined,
-      lastDate: moment(new Date()).format('YYYY-MM-DD hh:mm:ss.SSS'),
-      todate: moment(new Date()).format('YYYY-MM-DD')
+      lastDate: moment(new Date()).format('YYYY-MM-DD HH:mm:ss.SSS')
+      // todate: moment(new Date()).format('YYYY-MM-DD')
     }
   },
   props: {
@@ -21,9 +21,8 @@ export default {
   },
   methods: {
     async getdata (dev, room, at, gt) {
-      at = (at === undefined) ? '' : at
-      at = (gt === undefined) ? at : ''
-      gt = (gt === undefined) ? '' : gt
+      // at = (gt === undefined) ? at : ''
+      console.log(`更新時間1${this.lastDate}`)
       let res = await chartLogData('温度', dev, room, at, gt)
       res.data.slice(1).forEach(element => {
         this.chartData.push({
@@ -31,8 +30,8 @@ export default {
           y: element['value']
         })
       })
-      this.lastDate = moment(this.chartData.slice(-1)[0]['t']).format('YYYY-MM-DD hh:mm:ss.SSS')
-      console.log(`更新時間${this.lastDate}`)
+      this.lastDate = moment(this.chartData.slice(-1)[0]['t']).format('YYYY-MM-DD HH:mm:ss.SSS')
+      console.log(`更新時間2${this.lastDate}`)
     }
   },
   mounted () {
@@ -52,7 +51,7 @@ export default {
             refresh: 5000,
             duration: 300000,
             onRefresh: () => {
-              this.getdata(this.dev, this.room, this.todate, this.lastDate)
+              this.getdata(this.dev, this.room, '', this.lastDate)
             }
           }
         }],
