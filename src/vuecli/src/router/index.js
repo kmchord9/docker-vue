@@ -4,6 +4,7 @@ import Router from 'vue-router'
 // import Vuecharts from 'vue-chartjs'
 import Home from '../components/Home'
 import VueChartJS from '@/components/VueChartJS'
+import LogChart from '@/components/LogChart'
 // import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
@@ -20,6 +21,11 @@ export default new Router({
       path: '/chartjs',
       name: 'VueChartJS',
       component: VueChartJS
+    },
+    {
+      path: '/logchart',
+      name: 'LogChart',
+      component: LogChart
     }
   ]
 })
