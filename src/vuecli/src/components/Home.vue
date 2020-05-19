@@ -6,6 +6,7 @@
                 <ul>
                     <li><router-link to="chartjs">vue-chartjs</router-link></li>
                     <li><router-link to="logchart">log-chartjs</router-link></li>
+                    <li><router-link to="logchart2">log-chartjs2</router-link></li>
                 </ul>
 
             </div>
