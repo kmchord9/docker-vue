@@ -9,22 +9,36 @@
         <div class="columns">
             <div class="column">
                 <h3>Line Chart</h3>
+                <reactive
+                  :create="'2020-05-17'"
+                  :device="'BME280'"
+                  :place="'部屋001'"
+                  :physic="'温度'"/>
             </div>
             <div class="column">
                 <h3>Bar Chart</h3>
+                <reactive
+                  :create="'2020-05-18'"
+                  :device="'BME280'"
+                  :place="'部屋001'"
+                  :physic="'温度'"/>
             </div>
         </div>
         <div class="columns">
             <div class="column">
                 <h3>Bubble Chart</h3>
                 <reactive
-                  v-if="loaded"
-                  :chart-data="chartData"
-                  :options="options"/>
-
+                  :create="'2020-05-19'"
+                  :device="'BME280'"
+                  :place="'部屋001'"
+                  :physic="'温度'"/>
             </div>
             <div class="column">
                 <h3>Reactivity - Live update upon change in datasets</h3>
+                <realtime
+                  :device="'MAX31855'"
+                  :place="'部屋003'"
+                  :physic="'温度'"/>
             </div>
         </div>
     </section>
@@ -32,37 +46,26 @@
 
 <script>
 import Reactive from './Reactive'
-import { getChartDataFormat, getChartOptionFormat, chartDataArray } from '../api/api'
+import Realtime from './Realtime'
+// import { getChartDataFormat, getChartOptionFormat, chartDataArray } from '../api/api'
 
 export default {
   name: 'VueChartJS',
   components: {
-    Reactive
+    Reactive,
+    Realtime
   },
   data () {
     return {
-      dataContents: null,
-      chartData: null,
-      options: getChartOptionFormat(),
-      loaded: false
+      // dataContents: null,
+      // chartData: null
+      // options: getChartOptionFormat(),
+      // loaded: false
     }
   },
   created () {
   },
   methods: {
-  },
-  mounted () {
-    this.loaded = false
-    try {
-      // chartDataArray(this.physics, this.device, this.place, this.createat, this.creategt)
-      chartDataArray('温度', 'BME280', '部屋001', '2020-05-19')
-        .then((res) => {
-          this.chartData = getChartDataFormat(res[0], res[1])
-        })
-      this.loaded = true
-    } catch (e) {
-      console.error(e)
-    }
   }
 }
 </script>

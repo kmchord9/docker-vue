@@ -61,15 +61,40 @@ const getChartDataFormat = (labels, datas) => {
   }
 }
 
-const getChartOptionFormat = () => {
-  return {
-    scales: {
-      xAxes: [{
-        type: 'time'
-      }]
-    },
-    plugins: {
-      streaming: false
+const getChartOptionFormat = (realtime = false, refresh = 5000, func = null) => {
+  if (realtime === false) {
+    return {
+      scales: {
+        xAxes: [{
+          type: 'time'
+        }]
+      },
+      plugins: {
+        streaming: false
+      }
+    }
+  } else {
+    return {
+      scales: {
+        xAxes: [{
+          type: 'realtime',
+          realtime: {
+            delay: 2000,
+            refresh: refresh,
+            duration: 300000,
+            onRefresh: () => {
+              func()
+            }
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            suggestedMax: 40,
+            suggestedMin: 20,
+            stepSize: 2
+          }
+        }]
+      }
     }
   }
 }
