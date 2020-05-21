@@ -42,6 +42,9 @@ export default {
       } catch (e) {
         console.error(e)
       }
+    },
+    testlog (txt) {
+      console.log(this.physic)
     }
   },
   mounted () {

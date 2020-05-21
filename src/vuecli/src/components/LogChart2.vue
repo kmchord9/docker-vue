@@ -9,36 +9,21 @@
         <div class="columns">
             <div class="column">
                 <h3>Line Chart</h3>
-                <reactive
-                  :create="'2020-05-17'"
-                  :device="'BME280'"
-                  :place="'部屋001'"
-                  :physic="'温度'"/>
+                <myinput></myinput>
             </div>
             <div class="column">
-                <h3>Bar Chart</h3>
-                <reactive
-                  :create="'2020-05-18'"
-                  :device="'BME280'"
-                  :place="'部屋001'"
-                  :physic="'温度'"/>
+                <h3>Line Chart</h3>
+                <myinput></myinput>
             </div>
         </div>
         <div class="columns">
             <div class="column">
-                <h3>Bubble Chart</h3>
-                <reactive
-                  :create="'2020-05-19'"
-                  :device="'BME280'"
-                  :place="'部屋001'"
-                  :physic="'温度'"/>
+                <h3>Line Chart</h3>
+                <myinput></myinput>
             </div>
             <div class="column">
-                <h3>Reactivity - Live update upon change in datasets</h3>
-                <realtime
-                  :device="'MAX31855'"
-                  :place="'部屋003'"
-                  :physic="'温度'"/>
+                <h3>Line Chart</h3>
+                <myinput></myinput>
             </div>
         </div>
     </section>
@@ -47,13 +32,15 @@
 <script>
 import Reactive from './Reactive'
 import Realtime from './Realtime'
+import Myinput from './Myinput'
 // import { getChartDataFormat, getChartOptionFormat, chartDataArray } from '../api/api'
 
 export default {
   name: 'VueChartJS',
   components: {
     Reactive,
-    Realtime
+    Realtime,
+    Myinput
   },
   data () {
     return {
