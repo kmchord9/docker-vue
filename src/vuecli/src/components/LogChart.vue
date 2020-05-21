@@ -1,53 +1,48 @@
 <template>
     <section class="container">
         <ul>
-            <li><router-link to="/">Home</router-link></li>
-            <li><router-link to="chartjs">vue-chartjs</router-link></li>
-            <li><router-link to="logchart">log-chartjs</router-link></li>
+          <li><router-link to="/">Home</router-link></li>
+          <li><router-link to="logchart">Realtime</router-link></li>
+          <li><router-link to="logchart2">Log</router-link></li>
         </ul>
         <h1>Demo examples</h1>
         <div class="columns">
             <div class="column">
                 <h3>Line Chart</h3>
-                <line-chart></line-chart>
+                <realtime
+                  :device="'BME280'"
+                  :place="'部屋001'"
+                  :physic="'温度'"/>
             </div>
             <div class="column">
-                <h3>Bar Chart</h3>
+                <h3>Line Chart</h3>
+                <realtime
+                  :device="'BME280'"
+                  :place="'部屋001'"
+                  :physic="'湿度'"/>
             </div>
         </div>
         <div class="columns">
             <div class="column">
-                <h3>Bubble Chart</h3>
-                <bubble-chart></bubble-chart>
+                <h3>Line Chart</h3>
             </div>
             <div class="column">
-                <h3>Reactivity - Live update upon change in datasets</h3>
-                <reactive :chart-data="dataContents"></reactive>
-                <button class="button is-primary" @click="fillData()">Ramdomize</button>
+                <h3>Line Chart</h3>
             </div>
         </div>
     </section>
 </template>
 
 <script>
-import LineChart from './LineChart'
-// import BarChart from './BarChart'
-import BubbleChart from './BubbleChart'
-import Reactive from './Reactive'
-// import Stream from './Streaming'
+import Realtime from './Realtime'
 
 export default {
-  name: 'VueChartJS',
+  name: 'LogChart',
   components: {
-    LineChart,
-    // BarChart,
-    BubbleChart,
-    Reactive
-    // Stream
+    Realtime
   },
   data () {
     return {
-      dataContents: null
     }
   },
   created () {

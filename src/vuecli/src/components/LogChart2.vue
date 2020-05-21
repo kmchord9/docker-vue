@@ -1,9 +1,9 @@
 <template>
     <section class="container">
         <ul>
-            <li><router-link to="/">Home</router-link></li>
-            <li><router-link to="chartjs">vue-chartjs</router-link></li>
-            <li><router-link to="logchart">log-chartjs</router-link></li>
+          <li><router-link to="/">Home</router-link></li>
+          <li><router-link to="logchart">Realtime</router-link></li>
+          <li><router-link to="logchart2">Log</router-link></li>
         </ul>
         <h1>Demo examples</h1>
         <div class="columns">
@@ -30,16 +30,12 @@
 </template>
 
 <script>
-import Reactive from './Reactive'
-import Realtime from './Realtime'
 import Myinput from './Myinput'
 // import { getChartDataFormat, getChartOptionFormat, chartDataArray } from '../api/api'
 
 export default {
   name: 'VueChartJS',
   components: {
-    Reactive,
-    Realtime,
     Myinput
   },
   data () {

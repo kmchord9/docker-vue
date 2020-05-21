@@ -4,9 +4,9 @@
             <div class="container">
                 <h1>Creating Beautiful Charts Using Vue.js Wrapper For Cjart.js</h1>
                 <ul>
-                    <li><router-link to="chartjs">vue-chartjs</router-link></li>
-                    <li><router-link to="logchart">log-chartjs</router-link></li>
-                    <li><router-link to="logchart2">log-chartjs2</router-link></li>
+                    <li><router-link to="/">Home</router-link></li>
+                    <li><router-link to="logchart">Realtime</router-link></li>
+                    <li><router-link to="logchart2">Log</router-link></li>
                 </ul>
 
             </div>
