@@ -44,11 +44,9 @@ services:
       - ./db:/var/lib/mysql
       - ./compose/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: django
-      MYSQL_USER: django
-      MYSQL_PASSWORD: django
       TZ: 'Asia/Tokyo' 
+    env_file:
+      - ./.envs/.mysql
     ports:
       - 3306:3306
     #env_file: 
