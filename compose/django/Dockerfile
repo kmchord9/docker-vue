@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM balenalib/raspberrypi3-debian-python:3.7.6-stretch-build
 
 #COPY requirements.txt /setup/
 #COPY createBD.sh /setup
