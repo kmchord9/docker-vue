@@ -1,7 +1,7 @@
 import axios from 'axios'
 // import moment from 'moment'
 
-const BASE_URL = 'http://localhost:3001'
+const BASE_URL = 'http://nmiri-km.local:3001'
 
 const client = axios.create({
   method: 'GET',
