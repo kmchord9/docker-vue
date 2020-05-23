@@ -1,13 +1,15 @@
 import axios from 'axios'
 // import moment from 'moment'
 
-const BASE_URL = 'http://web_backend:3000'
+const BASE_URL = process.env.VUE_APP_HOST_URL
+const MY_NAME = process.env.VUE_APP_MYNAME
+const MY_PASS = process.env.VUE_APP_MYPASS
 
 const client = axios.create({
   method: 'GET',
   baseURL: `${BASE_URL}/api`,
   resposeType: 'json',
-  auth: {username: 'admin', password: 'mypass'},
+  auth: {username: MY_NAME, password: MY_PASS},
   timeout: 5000
 })
 
