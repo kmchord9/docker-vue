@@ -31,7 +31,7 @@ services:
     ports:
       - 3001:3000
     env_file: 
-      - ./.envs/.django
+      - ./.envs/.mysql
     tty: true
     depends_on:
       - db

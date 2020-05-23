@@ -1,3 +1,4 @@
+#データベースの変数
 MYSQL_ROOT_PASSWORD=root
 MYSQL_DATABASE=django
 MYSQL_USER=django
