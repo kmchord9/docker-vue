@@ -7,19 +7,24 @@ services:
       context: ./compose/apache
       dockerfile: Dockerfile
     ports:
-      - "8000:80"  
+      - "8000:80"
+      - "8001:8001"
+    depends_on:
+      - web_backend 
 
-  #web_front:
-  #  container_name: vue_web_front
-  #  build: ./compose/vuecli
-  #  command: sh +x yarn-install-start.sh
-  #  volumes: 
-  #    - ./src/vuecli:/code
-  #  ports:
-  #    - 8080:8080
-  #  env_file: 
-  #    - ./.envs/.vuecli
-  #  tty: true
+  web_front:
+    container_name: vue_web_front
+    build: ./compose/vuecli
+    command: sh +x yarn-install-start.sh
+    volumes: 
+      - ./src/vuecli:/code
+    ports:
+      - 8080:8080
+    env_file: 
+      - ./.envs/.vuecli
+    tty: true
+    depends_on:
+      - web_backend
     
   web_backend:
     container_name: django_web_backend
@@ -48,8 +53,10 @@ services:
       TZ: 'Asia/Tokyo' 
     env_file:
       - ./.envs/.mysql
-    ports:
-      - 3306:3306
+    expose:
+      - "3306"
+    #ports:
+    #  - 3306:3306
     #env_file: 
     #  - ./.envs/.django
     #tty: true
