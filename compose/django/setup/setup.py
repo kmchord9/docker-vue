@@ -4,11 +4,11 @@ import os
 import sys
 import django
 
-DJANGO_DB_NAME="default"
-DJANGO_SU_NAME="admin"
-DJANGO_SU_EMAIL="admin@my.company"
-DJANGO_SU_PASSWORD="mypass"
-DJANGO_SETTING_MODULE="DJANGO_SETTING_MODULE"
+DJANGO_DB_NAME=os.environ.get("DJANGO_DB_NAME")
+DJANGO_SU_NAME=os.environ.get("DJANGO_SU_NAME")
+DJANGO_SU_EMAIL=os.environ.get("DJANGO_SU_EMAIL")
+DJANGO_SU_PASSWORD=os.environ.get("DJANGO_SU_PASSWORD")
+DJANGO_SETTING_MODULE=os.environ.get("DJANGO_SETTING_MODULE")
 
 DATABASE_KEY = { 'phy': ['温度', '湿度', '気圧'],
                  'dev': ['BME280', 'ADT7410', 'MAX31855'],
