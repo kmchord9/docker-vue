@@ -1,18 +1,18 @@
 version: "3"
 
 services:
-  app:
-    container_name: app_apache
-    build: 
-      context: ./
-      dockerfile: ./compose/apache/Dockerfile
-    ports:
-      - "8000:80"
- #   env_file: 
- #     - ./.envs/.vuecli
- #     - ./.envs/.django
-    depends_on:
-      - web_backend 
+  #app:
+  #  container_name: app_apache
+  #  build: 
+  #    context: ./
+  #    dockerfile: ./compose/apache/Dockerfile
+  #  ports:
+  #    - "8000:80"
+  #  env_file: 
+  #    - ./.envs/.vuecli
+  #    - ./.envs/.django
+  #  depends_on:
+  #    - web_backend 
 
   #web_front:
   #  container_name: vue_web_front
