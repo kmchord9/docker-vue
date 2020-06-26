@@ -1,6 +1,16 @@
 version: "3"
 
 services:
+  app:
+    container_name: app_apache
+    build: 
+      context: ./
+      dockerfile: ./compose/apache/Dockerfile
+      # volumes: 
+      #1 - ./src/vue/dist/:/usr/local/apache2/htdocs/
+    ports:
+      - "8000:80"
+      
   #app:
   #  container_name: app_apache
   #  build: 
