@@ -2,8 +2,8 @@ FROM node:12.16.3-stretch as build-stage
 
 COPY ./src/vue /code
 WORKDIR /code
-#RUN yarn install &&\
-#    yarn run webpack 
+RUN yarn install &&\
+    yarn run webpack 
 
 FROM httpd:alpine
 
